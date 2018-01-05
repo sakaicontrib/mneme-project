@@ -185,7 +185,7 @@ public class ExportQtiServiceImpl implements ExportQtiService
 		root.setAttribute("xsi:schemaLocation", "http://www.imsglobal.org/xsd/imscp_v1p1 http://www.imsglobal.org/xsd/qti/qtiv2p1/qtiv2p1_imscpv1p2_v1p0.xsd http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/qti/qtiv2p1/imsqti_v2p1p1.xsd");
 		root.setAttribute("xmlns:imsqti", "http://www.imsglobal.org/xsd/imsqti_v2p1");
 		root.setAttribute("xmlns:imsmd", "http://www.imsglobal.org/xsd/imsmd_v1p2");
-		root.setAttribute("xmlns", "http://www.imsglobal.org/xsd/imscp_v1p1");
+		//root.setAttribute("xmlns", "http://www.imsglobal.org/xsd/imscp_v1p1");
 		root.setAttribute("identifier", "Manifest-" + getUUID());
 		return root;
 	}
