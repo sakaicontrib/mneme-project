@@ -80,7 +80,20 @@ public class UploadXml
 			resolver.getCatalog().parseCatalog("catalog.xml");
 			String base = resolver.getCatalog().getCurrentBase();
 			docBuilder.setEntityResolver(resolver);
-			this.upload = docBuilder.parse(file.getInputStream(), base);
+
+			String fileName = file.getName();
+			String extension = (fileName != null && fileName.lastIndexOf('.') != -1) ? fileName.substring(fileName.lastIndexOf('.') + 1) : null;
+			// parse into a doc
+			if ("xml".equals(extension))
+			{
+				this.upload = docBuilder.parse(file.getInputStream(), base);
+				this.unzipLocation = "";
+			}
+			else if ("zip".equals(extension))
+			{
+				this.unzipLocation = unpackageZipFile(fileName, file);
+				this.upload = docBuilder.parse(unzipLocation + File.separator + "imsmanifest.xml");
+			}
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
