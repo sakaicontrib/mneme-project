@@ -810,11 +810,11 @@ public class UiEntityList extends UiComponent implements EntityList
 					response.print("<td style=\"");
 					if (c.getWidth() != null)
 					{
-						response.print("width:" + c.getWidth().toString() + "px;");
+						response.print("width:25px;");
 					}
 					else if (c.getWidthEm() != null)
 					{
-						response.print("width:" + c.getWidthEm().toString() + "em;");
+						response.print("width:11em;");
 					}
 					else if (c.getWidthPercent() != null)
 					{
