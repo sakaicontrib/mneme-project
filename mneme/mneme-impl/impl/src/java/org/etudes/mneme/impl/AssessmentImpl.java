@@ -1863,7 +1863,10 @@ public class AssessmentImpl implements Assessment
 	public void setSendEmailOnSubmission(Boolean send) 
 	{
 		if (send == null) 
-			throw new IllegalArgumentException();
+		{
+			this.sendEmailOnSubmission = Boolean.FALSE;
+			return;
+		}
 		
 		if (this.sendEmailOnSubmission.equals(send))
 			return;
