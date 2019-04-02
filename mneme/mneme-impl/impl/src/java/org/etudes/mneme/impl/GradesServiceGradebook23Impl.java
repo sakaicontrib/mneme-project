@@ -181,7 +181,7 @@ public class GradesServiceGradebook23Impl implements GradesService
 
 				// make an entry for the assessment
 				gradebookService.addExternalAssessment(assessment.getContext(), assessment.getTitle(), url, assessment.getTitle(),
-						toDoubleScore(assessment.getPoints()), assessment.getDates().getDueDate(), APPLICATION_NAME);
+						toDoubleScore(assessment.getPoints()), assessment.getDates().getDueDate(), APPLICATION_NAME, null);
 				return Boolean.TRUE;
 			}
 		}
