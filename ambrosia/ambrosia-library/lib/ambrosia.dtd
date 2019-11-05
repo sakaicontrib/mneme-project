@@ -41,7 +41,7 @@
 <!ELEMENT title (message | included | highlighted)* >
 <!ATTLIST title highlighted (TRUE|FALSE) #IMPLIED >
 
-<ELEMENT failedRequirementsMessage (message)* >
+<!ELEMENT failedRequirementsMessage (message)* >
 
 <!ELEMENT header (message | container | included)* >
 
@@ -140,7 +140,7 @@
 <!ATTLIST htmlModel delegate CDATA #IMPLIED>
 <!ATTLIST htmlModel tool CDATA #IMPLIED >
 <!ATTLIST htmlModel missing CDATA #IMPLIED >
-<<!ATTLIST htmlModel stripP (TRUE|FALSE) #IMPLIED >
+<!ATTLIST htmlModel stripP (TRUE|FALSE) #IMPLIED >
 
 <!ELEMENT iconModel (missingValues | model | title)* >
 <!ATTLIST iconModel ref CDATA #IMPLIED >
