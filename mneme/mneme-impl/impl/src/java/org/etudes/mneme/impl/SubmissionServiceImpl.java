@@ -480,7 +480,9 @@ public class SubmissionServiceImpl implements SubmissionService, Runnable
 			List<String> headers = new ArrayList<String>();
 			headers.add("Content-Type: text/html; charset=UTF-8");
 			
-			emailService.send("weblearn@oucs.ox.ac.uk", user.getEmail(), 
+			String from = this.serverConfigurationService.getString("ui.service", "Sakai") + "<no-reply@"	+ this.serverConfigurationService.getServerName() + ">";
+
+			emailService.send(from, user.getEmail(), 
 					(assessment.getHasPoints() ? rl.getString("email-test") : rl.getString("email-survey")) 
 					+ " " + rl.getString("email-completed") + " - \'" 
 					+ assessment.getTitle() + "\'.", body.toString(), user.getEmail(), null, 
