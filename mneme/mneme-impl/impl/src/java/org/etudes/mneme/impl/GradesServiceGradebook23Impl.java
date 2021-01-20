@@ -127,7 +127,7 @@ public class GradesServiceGradebook23Impl implements GradesService
 		{
 			M_log.debug("Exception thrown while getting site" + e.toString());
 		}
-		boolean hasGradebook = gradebookService.isGradebookDefined(context) && site.getToolForCommonId("sakai.gradebook.tool") != null;
+		boolean hasGradebook = gradebookService.isGradebookDefined(context) && (site.getToolForCommonId("sakai.gradebook.tool") != null || site.getToolForCommonId("sakai.gradebookng") != null);
 		if (!hasGradebook)
 		{
 			hasGradebook = site.getToolForCommonId("e3.gradebook") != null;
