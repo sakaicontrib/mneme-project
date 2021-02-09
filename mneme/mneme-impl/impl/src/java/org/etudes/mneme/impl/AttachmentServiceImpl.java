@@ -61,12 +61,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFFont;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFFont;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.etudes.ambrosia.api.Value;
 import org.etudes.ambrosia.util.EscapeRefUrl;
 import org.etudes.mneme.api.Answer;
@@ -572,7 +572,7 @@ public class AttachmentServiceImpl implements AttachmentService, EntityProducer
 				{
 				}
 
-				// get the name extension from the messages (i.e. "_ExportSummary.xls")
+				// get the name extension from the messages (i.e. "_ExportSummary.xlsx")
 				String fileName = siteTitle + "_" + outerParts[0]+ this.messages.getFormattedMessage("export_summary_file_name", null) ;
 
 				fileName = fileName.replace(' ', '_');
@@ -599,7 +599,7 @@ public class AttachmentServiceImpl implements AttachmentService, EntityProducer
 				{
 				}
 
-				// get the name extension from the messages (i.e. "_ItemAnalysis.xls")
+				// get the name extension from the messages (i.e. "_ItemAnalysis.xlsx")
 				String fileName = siteTitle + "_" + outerParts[0]+ this.messages.getFormattedMessage("item_analysis_file_name", null) ;
 
 				fileName = fileName.replace(' ', '_');
@@ -626,7 +626,7 @@ public class AttachmentServiceImpl implements AttachmentService, EntityProducer
 				{
 				}
 
-				// get the name extension from the messages (i.e. "_AsmtStats.xls")
+				// get the name extension from the messages (i.e. "_AsmtStats.xlsx")
 				String fileName = siteTitle + "_" + outerParts[0]+ this.messages.getFormattedMessage("asmt_stats_file_name", null) ;
 
 				fileName = fileName.replace(' ', '_');
@@ -2089,7 +2089,7 @@ public class AttachmentServiceImpl implements AttachmentService, EntityProducer
 			OutputStream out = null;
 			try
 			{
-				HSSFWorkbook wb = new HSSFWorkbook();
+				XSSFWorkbook wb = new XSSFWorkbook();
 
 				if (createResponsesSheet(wb, assessment) != null)
 				{
@@ -2148,7 +2148,7 @@ public class AttachmentServiceImpl implements AttachmentService, EntityProducer
 			OutputStream out = null;
 			try
 			{
-				HSSFWorkbook wb = new HSSFWorkbook();
+				XSSFWorkbook wb = new XSSFWorkbook();
 
 				if (createItemAnalysisSheet(wb, assessment) != null)
 				{
@@ -2209,7 +2209,7 @@ public class AttachmentServiceImpl implements AttachmentService, EntityProducer
 			OutputStream out = null;
 			try
 			{
-				HSSFWorkbook wb = new HSSFWorkbook();
+				XSSFWorkbook wb = new XSSFWorkbook();
 
 				if (createAsmtStatsSheet(wb, submissions) != null)
 				{
@@ -2882,48 +2882,48 @@ public class AttachmentServiceImpl implements AttachmentService, EntityProducer
 		return false;
 	}
 
-	HSSFWorkbook createAsmtStatsSheet(HSSFWorkbook workbook, List<Submission> submissions)
+	XSSFWorkbook createAsmtStatsSheet(XSSFWorkbook workbook, List<Submission> submissions)
 	{
 		if (submissions == null || submissions.size() == 0) return null;
 
 		Map<String, Integer> userRowMap = new HashMap();
-		HSSFSheet sheet = workbook.createSheet("Submission responses");
+		XSSFSheet sheet = workbook.createSheet("Submission responses");
 
-		HSSFRow headerRow = sheet.createRow((short) 0);
+		XSSFRow headerRow = sheet.createRow((short) 0);
 
-		HSSFCellStyle style = workbook.createCellStyle();
-		HSSFFont font = workbook.createFont();
-		font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+		XSSFCellStyle style = workbook.createCellStyle();
+		XSSFFont font = workbook.createFont();
+		font.setBold(true);
 		style.setFont(font);
 		// Printing header row and question text
-		HSSFCell cell0 = headerRow.createCell((short) (0));
+		XSSFCell cell0 = headerRow.createCell((short) (0));
 		cell0.setCellStyle(style);
 		cell0.setCellValue(this.messages.getFormattedMessage("asmt_name", null));
-		HSSFCell cell1 = headerRow.createCell((short) (1));
+		XSSFCell cell1 = headerRow.createCell((short) (1));
 		cell1.setCellStyle(style);
 		cell1.setCellValue(this.messages.getFormattedMessage("asmt_uname", null));
-		HSSFCell cell2 = headerRow.createCell((short) (2));
+		XSSFCell cell2 = headerRow.createCell((short) (2));
 		cell2.setCellStyle(style);
 		cell2.setCellValue(this.messages.getFormattedMessage("asmt_started", null));
-		HSSFCell cell3 = headerRow.createCell((short) (3));
+		XSSFCell cell3 = headerRow.createCell((short) (3));
 		cell3.setCellStyle(style);
 		cell3.setCellValue(this.messages.getFormattedMessage("asmt_finished", null));
-		HSSFCell cell4 = headerRow.createCell((short) (4));
+		XSSFCell cell4 = headerRow.createCell((short) (4));
 		cell4.setCellStyle(style);
 		cell4.setCellValue(this.messages.getFormattedMessage("asmt_status", null));
-		HSSFCell cell5 = headerRow.createCell((short) (5));
+		XSSFCell cell5 = headerRow.createCell((short) (5));
 		cell5.setCellStyle(style);
 		cell5.setCellValue(this.messages.getFormattedMessage("asmt_ascore", null));
-		HSSFCell cell6 = headerRow.createCell((short) (6));
+		XSSFCell cell6 = headerRow.createCell((short) (6));
 		cell6.setCellStyle(style);
 		cell6.setCellValue(this.messages.getFormattedMessage("asmt_final", null)+" "+this.messages.getFormattedMessage("asmt_outof", null)+" "+submissions.get(0).getAssessment().getPoints()+")");
-		HSSFCell cell7 = headerRow.createCell((short) (7));
+		XSSFCell cell7 = headerRow.createCell((short) (7));
 		cell7.setCellStyle(style);
 		cell7.setCellValue(this.messages.getFormattedMessage("asmt_released", null));
 
 		for (Submission sub : submissions)
 		{
-			HSSFRow row;
+			XSSFRow row;
 
 			int rowNum = sheet.getLastRowNum() + 1;
 			row = sheet.createRow(rowNum);
@@ -2973,13 +2973,13 @@ public class AttachmentServiceImpl implements AttachmentService, EntityProducer
 	 * @param workbook Workbook object
 	 * @param assessment Assessment object
 	 */
-	void createFillBlanksTab(List<Question> fb_questions, HSSFWorkbook workbook, Assessment assessment)
+	void createFillBlanksTab(List<Question> fb_questions, XSSFWorkbook workbook, Assessment assessment)
 	{
 		if (fb_questions == null || fb_questions.size() == 0) return;
 
 		String assmtId = assessment.getId();
-		HSSFSheet sheet = null;
-		HSSFRow row;
+		XSSFSheet sheet = null;
+		XSSFRow row;
 
 		boolean headerRowDone = false;
 		for (Iterator it = fb_questions.iterator(); it.hasNext();)
@@ -2994,14 +2994,14 @@ public class AttachmentServiceImpl implements AttachmentService, EntityProducer
 			{
 				sheet = workbook.createSheet("FillBlanks");
 
-				HSSFRow headerRow = sheet.createRow((short) 0);
+				XSSFRow headerRow = sheet.createRow((short) 0);
 
-				HSSFCellStyle style = workbook.createCellStyle();
-				HSSFFont font = workbook.createFont();
-				font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+				XSSFCellStyle style = workbook.createCellStyle();
+				XSSFFont font = workbook.createFont();
+				font.setBold(true);
 				style.setFont(font);
 				// Printing header row
-				HSSFCell cell0 = headerRow.createCell((short) (0));
+				XSSFCell cell0 = headerRow.createCell((short) (0));
 				cell0.setCellStyle(style);
 				cell0.setCellValue(this.messages.getFormattedMessage("item_analysis_question", null));
 
@@ -3065,13 +3065,13 @@ public class AttachmentServiceImpl implements AttachmentService, EntityProducer
 	 * @param workbook Workbook object
 	 * @param assessment Assessment object
 	 */
-	void createFillInlineTab(List<Question> fi_questions, HSSFWorkbook workbook, Assessment assessment)
+	void createFillInlineTab(List<Question> fi_questions, XSSFWorkbook workbook, Assessment assessment)
 	{
 		if (fi_questions == null || fi_questions.size() == 0) return;
 
 		String assmtId = assessment.getId();
-		HSSFSheet sheet = null;
-		HSSFRow row;
+		XSSFSheet sheet = null;
+		XSSFRow row;
 
 		boolean headerRowDone = false;
 		for (Iterator it = fi_questions.iterator(); it.hasNext();)
@@ -3089,14 +3089,14 @@ public class AttachmentServiceImpl implements AttachmentService, EntityProducer
 			{
 				sheet = workbook.createSheet("InlineDropdown");
 
-				HSSFRow headerRow = sheet.createRow((short) 0);
+				XSSFRow headerRow = sheet.createRow((short) 0);
 
-				HSSFCellStyle style = workbook.createCellStyle();
-				HSSFFont font = workbook.createFont();
-				font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+				XSSFCellStyle style = workbook.createCellStyle();
+				XSSFFont font = workbook.createFont();
+				font.setBold(true);
 				style.setFont(font);
 				// Printing header row
-				HSSFCell cell0 = headerRow.createCell((short) (0));
+				XSSFCell cell0 = headerRow.createCell((short) (0));
 				cell0.setCellStyle(style);
 				cell0.setCellValue(this.messages.getFormattedMessage("item_analysis_question", null));
 
@@ -3107,7 +3107,7 @@ public class AttachmentServiceImpl implements AttachmentService, EntityProducer
 				{
 					for (String str : selList)
 					{
-						HSSFCell cell1 = headerRow.createCell((short) (i));
+						XSSFCell cell1 = headerRow.createCell((short) (i));
 						cell1.setCellStyle(style);
 						cell1.setCellValue(str);
 						fbqMap.put(Integer.toString(k) + str, 0);
@@ -3174,13 +3174,13 @@ public class AttachmentServiceImpl implements AttachmentService, EntityProducer
 	 * @param assessment Assessment object
 	 * @return True if answers exist, false if not
 	 */
-	boolean createFrequencyTab(List<Question> questions, HSSFWorkbook workbook, Assessment assessment)
+	boolean createFrequencyTab(List<Question> questions, XSSFWorkbook workbook, Assessment assessment)
 	{
 		if (questions == null || questions.size() == 0) return false;
 
 		String assmtId = assessment.getId();
-		HSSFSheet sheet = null;
-		HSSFRow row;
+		XSSFSheet sheet = null;
+		XSSFRow row;
 
 		boolean headerRowDone = false;
 		List<Submission> submissions = this.submissionService.findAssessmentSubmissions(assessment,
@@ -3205,41 +3205,41 @@ public class AttachmentServiceImpl implements AttachmentService, EntityProducer
 				{
 					sheet = workbook.createSheet("ItemAnalysis");
 
-					HSSFRow headerRow = sheet.createRow((short) 0);
+					XSSFRow headerRow = sheet.createRow((short) 0);
 
-					HSSFCellStyle style = workbook.createCellStyle();
-					HSSFFont font = workbook.createFont();
-					font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+					XSSFCellStyle style = workbook.createCellStyle();
+					XSSFFont font = workbook.createFont();
+					font.setBold(true);
 					style.setFont(font);
 					// Printing header row
-					HSSFCell cell0 = headerRow.createCell((short) (0));
+					XSSFCell cell0 = headerRow.createCell((short) (0));
 					cell0.setCellStyle(style);
 					cell0.setCellValue(this.messages.getFormattedMessage("item_analysis_question", null));
-					HSSFCell cell9 = headerRow.createCell((short) (1));
+					XSSFCell cell9 = headerRow.createCell((short) (1));
 					cell9.setCellStyle(style);
 					cell9.setCellValue(this.messages.getFormattedMessage("item_analysis_title", null));
-					HSSFCell cell1 = headerRow.createCell((short) (2));
+					XSSFCell cell1 = headerRow.createCell((short) (2));
 					cell1.setCellStyle(style);
 					cell1.setCellValue(this.messages.getFormattedMessage("item_analysis_pool", null));
-					HSSFCell cell2 = headerRow.createCell((short) (3));
+					XSSFCell cell2 = headerRow.createCell((short) (3));
 					cell2.setCellStyle(style);
 					cell2.setCellValue(this.messages.getFormattedMessage("item_analysis_numbers", null));
-					HSSFCell cell3 = headerRow.createCell((short) (4));
+					XSSFCell cell3 = headerRow.createCell((short) (4));
 					cell3.setCellStyle(style);
 					cell3.setCellValue(this.messages.getFormattedMessage("item_analysis_whole_group", null));
-					HSSFCell cell4 = headerRow.createCell((short) (5));
+					XSSFCell cell4 = headerRow.createCell((short) (5));
 					cell4.setCellStyle(style);
 					cell4.setCellValue(this.messages.getFormattedMessage("item_analysis_upper_27", null));
-					HSSFCell cell5 = headerRow.createCell((short) (6));
+					XSSFCell cell5 = headerRow.createCell((short) (6));
 					cell5.setCellStyle(style);
 					cell5.setCellValue(this.messages.getFormattedMessage("item_analysis_lower_27", null));
-					HSSFCell cell6 = headerRow.createCell((short) (7));
+					XSSFCell cell6 = headerRow.createCell((short) (7));
 					cell6.setCellStyle(style);
 					cell6.setCellValue(this.messages.getFormattedMessage("item_analysis_diff_in", null));
-					HSSFCell cell7 = headerRow.createCell((short) (8));
+					XSSFCell cell7 = headerRow.createCell((short) (8));
 					cell7.setCellStyle(style);
 					cell7.setCellValue(this.messages.getFormattedMessage("item_analysis_disc", null));
-					HSSFCell cell8 = headerRow.createCell((short) (9));
+					XSSFCell cell8 = headerRow.createCell((short) (9));
 					cell8.setCellStyle(style);
 					cell8.setCellValue(this.messages.getFormattedMessage("item_analysis_freq", null));
 					headerRowDone = true;
@@ -3324,7 +3324,7 @@ public class AttachmentServiceImpl implements AttachmentService, EntityProducer
 	 * @param assessment Assessment object
 	 * @return Updated workbook with the item analysis info
 	 */
-	HSSFWorkbook createItemAnalysisSheet(HSSFWorkbook workbook, Assessment assessment)
+	XSSFWorkbook createItemAnalysisSheet(XSSFWorkbook workbook, Assessment assessment)
 	{
 		Map<String, Integer> userRowMap = new HashMap();
 
@@ -3406,13 +3406,13 @@ public class AttachmentServiceImpl implements AttachmentService, EntityProducer
 	 * @param workbook Workbook object
 	 * @param assessment Assessment object
 	 */
-	void createLikertScaleTab(List<Question> ls_questions, HSSFWorkbook workbook, Assessment assessment)
+	void createLikertScaleTab(List<Question> ls_questions, XSSFWorkbook workbook, Assessment assessment)
 	{
 		if (ls_questions == null || ls_questions.size() == 0) return;
 
 		String assmtId = assessment.getId();
-		HSSFSheet sheet = null;
-		HSSFRow row;
+		XSSFSheet sheet = null;
+		XSSFRow row;
 
 		boolean headerRowDone = false;
 		for (Iterator it = ls_questions.iterator(); it.hasNext();)
@@ -3434,14 +3434,14 @@ public class AttachmentServiceImpl implements AttachmentService, EntityProducer
 			{
 				sheet = workbook.createSheet("LikertScale");
 
-				HSSFRow headerRow = sheet.createRow((short) 0);
+				XSSFRow headerRow = sheet.createRow((short) 0);
 
-				HSSFCellStyle style = workbook.createCellStyle();
-				HSSFFont font = workbook.createFont();
-				font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+				XSSFCellStyle style = workbook.createCellStyle();
+				XSSFFont font = workbook.createFont();
+				font.setBold(true);
 				style.setFont(font);
 				// Printing header row
-				HSSFCell cell0 = headerRow.createCell((short) (0));
+				XSSFCell cell0 = headerRow.createCell((short) (0));
 				cell0.setCellStyle(style);
 				cell0.setCellValue(this.messages.getFormattedMessage("item_analysis_question", null));
 
@@ -3497,13 +3497,13 @@ public class AttachmentServiceImpl implements AttachmentService, EntityProducer
 	 * @param workbook Workbook object
 	 * @param assessment Assessment object
 	 */
-	void createMatchTab(List<Question> ma_questions, HSSFWorkbook workbook, Assessment assessment)
+	void createMatchTab(List<Question> ma_questions, XSSFWorkbook workbook, Assessment assessment)
 	{
 		if (ma_questions == null || ma_questions.size() == 0) return;
 
 		String assmtId = assessment.getId();
-		HSSFSheet sheet = null;
-		HSSFRow row;
+		XSSFSheet sheet = null;
+		XSSFRow row;
 		boolean headerRowDone = false;
 		for (Iterator it = ma_questions.iterator(); it.hasNext();)
 		{
@@ -3516,14 +3516,14 @@ public class AttachmentServiceImpl implements AttachmentService, EntityProducer
 			if (!headerRowDone)
 			{
 				sheet = workbook.createSheet("Match");
-				HSSFRow headerRow = sheet.createRow((short) 0);
+				XSSFRow headerRow = sheet.createRow((short) 0);
 
-				HSSFCellStyle style = workbook.createCellStyle();
-				HSSFFont font = workbook.createFont();
-				font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+				XSSFCellStyle style = workbook.createCellStyle();
+				XSSFFont font = workbook.createFont();
+				font.setBold(true);
 				style.setFont(font);
 				// Printing header row
-				HSSFCell cell0 = headerRow.createCell((short) (0));
+				XSSFCell cell0 = headerRow.createCell((short) (0));
 				cell0.setCellStyle(style);
 				cell0.setCellValue(this.messages.getFormattedMessage("item_analysis_question", null));
 
@@ -3598,13 +3598,13 @@ public class AttachmentServiceImpl implements AttachmentService, EntityProducer
 	 * @param workbook Workbook object
 	 * @param assessment Assessment object
 	 */
-	void createMultipleChoiceTab(List<Question> mc_questions, HSSFWorkbook workbook, Assessment assessment)
+	void createMultipleChoiceTab(List<Question> mc_questions, XSSFWorkbook workbook, Assessment assessment)
 	{
 		if (mc_questions == null || mc_questions.size() == 0) return;
 
 		String assmtId = assessment.getId();
-		HSSFSheet sheet = null;
-		HSSFRow row;
+		XSSFSheet sheet = null;
+		XSSFRow row;
 		String[] choiceLabels = new String[]
 		{ "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "0", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y" };
 		int[] choiceCount = new int[25];
@@ -3627,20 +3627,20 @@ public class AttachmentServiceImpl implements AttachmentService, EntityProducer
 			if (!headerRowDone)
 			{
 				sheet = workbook.createSheet("MultipleChoice");
-				HSSFRow headerRow = sheet.createRow((short) 0);
+				XSSFRow headerRow = sheet.createRow((short) 0);
 
-				HSSFCellStyle style = workbook.createCellStyle();
-				HSSFFont font = workbook.createFont();
-				font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+				XSSFCellStyle style = workbook.createCellStyle();
+				XSSFFont font = workbook.createFont();
+				font.setBold(true);
 				style.setFont(font);
 				// Printing header row
-				HSSFCell cell0 = headerRow.createCell((short) (0));
+				XSSFCell cell0 = headerRow.createCell((short) (0));
 				cell0.setCellStyle(style);
 				cell0.setCellValue(this.messages.getFormattedMessage("item_analysis_question", null));
 
 				for (int i = 1; i <= headerSize; i++)
 				{
-					HSSFCell cell1 = headerRow.createCell((short) (i));
+					XSSFCell cell1 = headerRow.createCell((short) (i));
 					cell1.setCellStyle(style);
 					cell1.setCellValue(choiceLabels[i - 1]);
 				}
@@ -3720,13 +3720,13 @@ public class AttachmentServiceImpl implements AttachmentService, EntityProducer
 	 * @param workbook Workbook object
 	 * @param assessment Assessment object
 	 */
-	void createOrderTab(List<Question> or_questions, HSSFWorkbook workbook, Assessment assessment)
+	void createOrderTab(List<Question> or_questions, XSSFWorkbook workbook, Assessment assessment)
 	{
 		if (or_questions == null || or_questions.size() == 0) return;
 
 		String assmtId = assessment.getId();
-		HSSFSheet sheet = null;
-		HSSFRow row;
+		XSSFSheet sheet = null;
+		XSSFRow row;
 		String[] choiceLabels = new String[]
 		{ "1.", "2.", "3.", "4.", "5.", "6.", "7.", "8.","9.","10."};
 		int[] choiceCount = new int[10];
@@ -3748,20 +3748,20 @@ public class AttachmentServiceImpl implements AttachmentService, EntityProducer
 			if (!headerRowDone)
 			{
 				sheet = workbook.createSheet("Order");
-				HSSFRow headerRow = sheet.createRow((short) 0);
+				XSSFRow headerRow = sheet.createRow((short) 0);
 
-				HSSFCellStyle style = workbook.createCellStyle();
-				HSSFFont font = workbook.createFont();
-				font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+				XSSFCellStyle style = workbook.createCellStyle();
+				XSSFFont font = workbook.createFont();
+				font.setBold(true);
 				style.setFont(font);
 				// Printing header row
-				HSSFCell cell0 = headerRow.createCell((short) (0));
+				XSSFCell cell0 = headerRow.createCell((short) (0));
 				cell0.setCellStyle(style);
 				cell0.setCellValue(this.messages.getFormattedMessage("item_analysis_question", null));
 
 				for (int i = 1; i <= headerSize; i++)
 				{
-					HSSFCell cell1 = headerRow.createCell((short) (i));
+					XSSFCell cell1 = headerRow.createCell((short) (i));
 					cell1.setCellStyle(style);
 					cell1.setCellValue(choiceLabels[i - 1]);
 				}
@@ -3832,16 +3832,16 @@ public class AttachmentServiceImpl implements AttachmentService, EntityProducer
 	 * @param assessment Assessment object
 	 * @return Spreadsheet with Export summary
 	 */
-	HSSFSheet createResponsesSheet(HSSFWorkbook workbook, Assessment assessment)
+	XSSFSheet createResponsesSheet(XSSFWorkbook workbook, Assessment assessment)
 	{
 		boolean isSurvey;
 		if (assessment.getType() == AssessmentType.survey) isSurvey = true;
 		else isSurvey = false;
 		
 		Map<String, Integer> userRowMap = new HashMap();
-		HSSFSheet sheet = workbook.createSheet("Submission responses");
+		XSSFSheet sheet = workbook.createSheet("Submission responses");
 
-		HSSFRow headerRow = sheet.createRow((short) 0);
+		XSSFRow headerRow = sheet.createRow((short) 0);
 		AssessmentParts part = assessment.getParts();
 
 		List<Part> parts = part.getParts();
@@ -3855,30 +3855,30 @@ public class AttachmentServiceImpl implements AttachmentService, EntityProducer
 			questions.addAll(questionsUsed);
 		}
 
-		HSSFCellStyle style = workbook.createCellStyle();
-		HSSFFont font = workbook.createFont();
-		font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+		XSSFCellStyle style = workbook.createCellStyle();
+		XSSFFont font = workbook.createFont();
+		font.setBold(true);
 		style.setFont(font);
 		// Printing header row and question text
 		if (!isSurvey)
 		{
-			HSSFCell cell0 = headerRow.createCell((short) (0));
+			XSSFCell cell0 = headerRow.createCell((short) (0));
 			cell0.setCellStyle(style);
 			cell0.setCellValue(this.messages.getFormattedMessage("export_lastname", null));
-			HSSFCell cell1 = headerRow.createCell((short) (1));
+			XSSFCell cell1 = headerRow.createCell((short) (1));
 			cell1.setCellStyle(style);
 			cell1.setCellValue(this.messages.getFormattedMessage("export_firstname", null));
-			HSSFCell cell2 = headerRow.createCell((short) (2));
+			XSSFCell cell2 = headerRow.createCell((short) (2));
 			cell2.setCellStyle(style);
 			cell2.setCellValue(this.messages.getFormattedMessage("export_username", null));
 
-			HSSFCell cell3 = headerRow.createCell((short) (3));
+			XSSFCell cell3 = headerRow.createCell((short) (3));
 			cell3.setCellStyle(style);
 			cell3.setCellValue(this.messages.getFormattedMessage("export_score", null));
 		}
 		else
 		{
-			HSSFCell cell0 = headerRow.createCell((short) (0));
+			XSSFCell cell0 = headerRow.createCell((short) (0));
 			cell0.setCellStyle(style);
 			cell0.setCellValue(this.messages.getFormattedMessage("export_user", null));
 		}
@@ -3922,7 +3922,7 @@ public class AttachmentServiceImpl implements AttachmentService, EntityProducer
 			}
 			if (quest_desc != null)
 			{
-				HSSFCell cell = headerRow.createCell((short) (i++));
+				XSSFCell cell = headerRow.createCell((short) (i++));
 				cell.setCellStyle(style);
 				cell.setCellValue(quest_desc);
 			}
@@ -3963,7 +3963,7 @@ public class AttachmentServiceImpl implements AttachmentService, EntityProducer
 				answersExist = true;
 			for (Answer answer : answers)
 			{
-				HSSFRow row;
+				XSSFRow row;
 				try
 				{
 					String userId = answer.getSubmission().getUserId();
@@ -4251,13 +4251,13 @@ public class AttachmentServiceImpl implements AttachmentService, EntityProducer
 	 * @param workbook Workbook object
 	 * @param assessment Assessment object
 	 */
-	void createTrueFalseTab(List<Question> tf_questions, HSSFWorkbook workbook, Assessment assessment)
+	void createTrueFalseTab(List<Question> tf_questions, XSSFWorkbook workbook, Assessment assessment)
 	{
 		if (tf_questions == null || tf_questions.size() == 0) return;
 
 		String assmtId = assessment.getId();
-		HSSFSheet sheet = null;
-		HSSFRow row;
+		XSSFSheet sheet = null;
+		XSSFRow row;
 
 		boolean headerRowDone = false;
 		for (Iterator it = tf_questions.iterator(); it.hasNext();)
@@ -4271,20 +4271,20 @@ public class AttachmentServiceImpl implements AttachmentService, EntityProducer
 			{
 				sheet = workbook.createSheet("TrueFalse");
 
-				HSSFRow headerRow = sheet.createRow((short) 0);
+				XSSFRow headerRow = sheet.createRow((short) 0);
 
-				HSSFCellStyle style = workbook.createCellStyle();
-				HSSFFont font = workbook.createFont();
-				font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+				XSSFCellStyle style = workbook.createCellStyle();
+				XSSFFont font = workbook.createFont();
+				font.setBold(true);
 				style.setFont(font);
 				// Printing header row
-				HSSFCell cell0 = headerRow.createCell((short) (0));
+				XSSFCell cell0 = headerRow.createCell((short) (0));
 				cell0.setCellStyle(style);
 				cell0.setCellValue(this.messages.getFormattedMessage("item_analysis_question", null));
-				HSSFCell cell1 = headerRow.createCell((short) (1));
+				XSSFCell cell1 = headerRow.createCell((short) (1));
 				cell1.setCellStyle(style);
 				cell1.setCellValue(this.messages.getFormattedMessage("true-header", null));
-				HSSFCell cell2 = headerRow.createCell((short) (2));
+				XSSFCell cell2 = headerRow.createCell((short) (2));
 				cell2.setCellStyle(style);
 				cell2.setCellValue(this.messages.getFormattedMessage("false-header", null));
 

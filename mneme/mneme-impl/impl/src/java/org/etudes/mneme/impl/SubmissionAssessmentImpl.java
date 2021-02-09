@@ -152,7 +152,7 @@ public class SubmissionAssessmentImpl implements Assessment
 	public Reference getAsmtStatsReference()
 	{
 		Reference ref = EntityManager.newReference("/mneme/" + AttachmentService.DOWNLOAD + "/" + AttachmentService.ASMT_STATS + "/"
-				+ this.getContext() + "/" + this.getId() + ".xls");
+				+ this.getContext() + "/" + this.getId() + ".xlsx");
 		return ref;
 	}
 
@@ -210,7 +210,7 @@ public class SubmissionAssessmentImpl implements Assessment
 	public Reference getExportSummaryReference()
 	{
 		Reference ref = EntityManager.newReference("/mneme/" + AttachmentService.DOWNLOAD + "/" + AttachmentService.EXPORT_SUMMARY + "/"
-				+ this.getContext() + "/" + this.getId() + ".xls");
+				+ this.getContext() + "/" + this.getId() + ".xlsx");
 		return ref;
 	}
 
@@ -403,7 +403,7 @@ public class SubmissionAssessmentImpl implements Assessment
 	public Reference getItemAnalysisReference()
 	{
 		Reference ref = EntityManager.newReference("/mneme/" + AttachmentService.DOWNLOAD + "/" + AttachmentService.ITEM_ANALYSIS + "/"
-				+ this.getContext() + "/" + this.getId() + ".xls");
+				+ this.getContext() + "/" + this.getId() + ".xlsx");
 		return ref;
 	}
 
